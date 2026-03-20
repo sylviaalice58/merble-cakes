@@ -10,26 +10,26 @@ import Addproducts from './component/Addproducts';
 import Getproducts from './component/Getproducts';
 import Makepayment from './component/Makepayment';
 import Notfound from './component/Notfound';
+import Navbar from './component/Navbar';
+import About from './component/Aboutus';
+import Contact from './component/Contact';
 
 
 function App() {
   return (
     <Router>
-
       <div className="App">
-      <header className="App-header">
-       <h2>MERBLES CAKES</h2>
-      </header>
-
-       
+        <Navbar />
 
       <Routes>
         <Route path ='/' element={<Getproducts />} />
         <Route path ='/addproducts' element ={<Addproducts />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/signin' element={<Signin />} />
-         <Route path='/makepayment'element={<Makepayment />}/>
-          <Route path='*' element={<Notfound />} />
+        <Route path='/makepayment'element={<Makepayment />}/>
+        <Route path='/about'element={<About />}/>
+        <Route path='/contact'element={<Contact/>}/>
+        <Route path='*' element={<Notfound />} />
       </Routes>
     </div>
   

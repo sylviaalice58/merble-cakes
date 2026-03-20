@@ -53,7 +53,8 @@ const Getproduct = () => {
 
 
   return (
-    
+    <div className="container">
+  <CarouselComponent />
 
     <div className='row'>
 
@@ -65,27 +66,36 @@ const Getproduct = () => {
 
         {/* map the products fetched from the API to the user  interface */}
 
-        {products.map((product) => (
-          <div className="col-md-3 justify-content-center mb-3">
-          <div className="card shadow">
-            <img 
-            src={img_url + product.product_photo} 
-            alt="product name" 
-            className='product_img mt-3'/>
-            
-            <div className="card-body">
-              <h5 className="text-primary">{product.product_name}</h5>
+       {products.map((product) => (
+  <div className="col-sm-6 col-md-4 col-lg-3 mb-4 d-flex" key={product.product_id || product.id}>
+    <div className="card shadow w-100 h-100">
+      <img
+        src={img_url + product.product_photo}
+        alt={product.product_name}
+        className="product_img card-img-top"
+      />
 
-              <p className="text-dark">{product.product_description.slice(0, 100)}...</p>
+      <div className="card-body d-flex flex-column">
+        <h5 className="text-primary">{product.product_name}</h5>
 
-              <h4 className="text-danger"> KES {product.product_cost}</h4>
+        <p className="text-dark flex-grow-1">
+          {product.product_description.slice(0, 100)}...
+        </p>
 
-              <button className="btn btn-outline-primary" onClick={()=> navigate("/makepayment",{state:{product}})}>Purchase Now</button>
-            </div>
-          </div>
-        </div>
-        )   )}
+        <h4 className="text-danger">KES {product.product_cost}</h4>
+
+        <button
+          className="btn btn-outline-primary mt-auto"
+          onClick={() => navigate("/makepayment", { state: { product } })}
+        >
+          Purchase Now
+        </button>
+      </div>
+    </div>
+  </div>
+))}
         
+    </div>
     </div>
   )
 }

@@ -16,10 +16,10 @@ code {
 body {
   margin: 0;
   padding: 0;
-  height: 100%;
+  min-height: 100%;
+  overflow-y: auto;
   background: radial-gradient(circle at top left, #1b1b1f, #252323);
   font-family: 'Poppins', sans-serif;
-  overflow: hidden;
   color: #fff;
 }
 

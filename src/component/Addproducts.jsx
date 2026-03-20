@@ -1,135 +1,135 @@
-import React, { useState, useRef } from 'react'
-import Loader from './Loader';
-import axios from 'axios';
-
+import React, { useState, useRef } from "react";
+import Loader from "./Loader";
+import axios from "axios";
+import "../css/Addproducts.css";
 
 const Addproducts = () => {
+  const [product_name, setProductName] = useState("");
+  const [product_description, setProductDescription] = useState("");
+  const [product_cost, setProductCost] = useState("");
+  const [product_photo, setProductPhoto] = useState("");
 
-  // introduce the hooks
-  const [product_name, setProductName]=useState("");
-  const[product_description,setProductDescription]=useState("");
-  const[product_cost,setProductCost]=useState("");
-  const[product_photo,setProductPhoto]=useState("");
-
-  // declare the additional hook to manage the state of the application
-  const[loading,setLoading]=useState(false);
-  const[success,setSuccess]=useState("");
-  const[error,setError]=useState("");
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
   const fileInputRef = useRef(null);
 
-  // Create a fiunction that will handle the submit action
-  const handleSubmit =async(e) =>{
-    // prevent site from reloading
-    e.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    setSuccess("");
 
-    // Set loading hook with a message(activate it)
-    setLoading(true)
+    try {
+      const formdata = new FormData();
+      formdata.append("product_name", product_name);
+      formdata.append("product_description", product_description);
+      formdata.append("product_cost", product_cost);
+      formdata.append("product_photo", product_photo);
 
-    try{
-      // create a formdata
-      const formdata =new FormData()
+      const response = await axios.post(
+        "https://slyney2248.alwaysdata.net/api/add_product",
+        formdata
+      );
 
-      // Append the details to the form data created
-      formdata.append("product_name",product_name);
-      formdata.append("product_description",product_description);
-      formdata.append("product_cost",product_cost);
-      formdata.append("product_photo",product_photo);
-
-      // Interact with the axios to help u use the method post
-      const response = await axios.post("https://slyney2248.alwaysdata.net/api/add_product",formdata)
-
-      // set the loading hook back to default
-      setLoading(false)
-
-      // update the success hook with a message
-      setSuccess(response.data.message)
+      setLoading(false);
+      setSuccess(response.data.message);
 
       setTimeout(() => {
         setSuccess("");
       }, 3000);
-      
 
-      // Clearing the hooks(setting them back to default / empty)
       setProductName("");
       setProductDescription("");
       setProductCost("");
-      setProductPhoto("")
+      setProductPhoto("");
 
-      // clear file input field
       if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-      // Or
-      // e.target.reset()
-}
-
-
+        fileInputRef.current.value = "";
+      }
+    } catch (error) {
+      setLoading(false);
+      setError(error.message);
     }
-    catch(error){
-      // Setting loading hook back to default
-      setLoading(false)
-
-      // update the error message
-      setError(error.message)
-
-    }
-  }
-
+  };
 
   return (
-    <div className='row justify-content-center mt-4'>
-       <div className="col-md-6 p-4 card shadow">
-        <h3>Add a cake</h3>
-       
-       {/* Bind the loading hook */}
-        {loading && <Loader/>}
+    <div className="addcake-page">
+      <div className="container py-5">
+        <div className="row justify-content-center">
+          <div className="col-md-8 col-lg-6">
+            <div className="addcake-card shadow-lg">
+              <div className="text-center mb-4">
+                <h2 className="addcake-title">Add a New Cake</h2>
+                <p className="addcake-subtitle">
+                  Upload your delicious cake details in style.
+                </p>
+              </div>
 
-          <h3 className="text-success">{success}</h3>
-          <h4 className="text-danger">{error}</h4>
+              {loading && <Loader />}
 
-        <form onSubmit={handleSubmit}>
-          <input type="text" 
-          placeholder='Enter cake name'
-          className='form-control'
-          required
-          value={product_name}
-          onChange={(e) => setProductName(e.target.value)}/> <br />
+              {success && <h5 className="success-msg text-center">{success}</h5>}
+              {error && <h5 className="error-msg text-center">{error}</h5>}
 
-          {/* {product_name} */}
+              <form onSubmit={handleSubmit}>
+                <div className="mb-3">
+                  <label className="form-label custom-label">Cake Name</label>
+                  <input
+                    type="text"
+                    placeholder="Enter cake name"
+                    className="form-control custom-input"
+                    required
+                    value={product_name}
+                    onChange={(e) => setProductName(e.target.value)}
+                  />
+                </div>
 
-          <input type="text" 
-          placeholder='Enter the cake description'
-          className='form-control'
-          required
-          value={product_description}
-          onChange={(e)=> setProductDescription(e.target.value)}/> <br />
+                <div className="mb-3">
+                  <label className="form-label custom-label">Description</label>
+                  <textarea
+                    placeholder="Enter the cake description"
+                    className="form-control custom-input"
+                    rows="4"
+                    required
+                    value={product_description}
+                    onChange={(e) => setProductDescription(e.target.value)}
+                  ></textarea>
+                </div>
 
-          {/* {product_description} */}
+                <div className="mb-3">
+                  <label className="form-label custom-label">Price (KES)</label>
+                  <input
+                    type="number"
+                    placeholder="Enter the price of the cake"
+                    className="form-control custom-input"
+                    required
+                    value={product_cost}
+                    onChange={(e) => setProductCost(e.target.value)}
+                  />
+                </div>
 
-          <input type="number"
-          placeholder='Enter the price of the cake' 
-          className='form-control'
-          required
-          value={product_cost}
-          onChange={(e)=>setProductCost(e.target.value)}/> <br />
-          {/* {product_cost} */}
+                <div className="mb-4">
+                  <label className="form-label custom-label">Cake Photo</label>
+                  <input
+                    type="file"
+                    className="form-control custom-file"
+                    required
+                    accept="image/*"
+                    ref={fileInputRef}
+                    onChange={(e) => setProductPhoto(e.target.files[0])}
+                  />
+                </div>
 
-          <label className='text-primary'>Product photo</label>
-          <input type="file" 
-          className='form-control'
-          required
-          accept='image/*'
-          ref={fileInputRef}
-          onChange={(e) => setProductPhoto(e.target.files[0])}/> <br />
-
-          
-
-          <input type="submit" 
-          value= "Add Cake"
-          className='btn btn-outline-primary'></input>
-        </form>
-       </div>
+                <button type="submit" className="btn addcake-btn w-100">
+                  Add Cake
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
 export default Addproducts;
