@@ -13,6 +13,9 @@ import Notfound from './component/Notfound';
 import Navbar from './component/Navbar';
 import About from './component/Aboutus';
 import Contact from './component/Contact';
+import AdminRoute from './component/AdminRoute';
+import Footer from './component/Footer';
+
 
 
 function App() {
@@ -23,14 +26,18 @@ function App() {
 
       <Routes>
         <Route path ='/' element={<Getproducts />} />
-        <Route path ='/addproducts' element ={<Addproducts />} />
-        <Route path='/signup' element={<Signup />} />
+        <Route path='/addcakes' element={
+          <AdminRoute>{<Addproducts />}</AdminRoute>
+        } />
+        < Route path='/signup' element={<Signup />} />
         <Route path='/signin' element={<Signin />} />
         <Route path='/makepayment'element={<Makepayment />}/>
         <Route path='/about'element={<About />}/>
         <Route path='/contact'element={<Contact/>}/>
         <Route path='*' element={<Notfound />} />
       </Routes>
+
+      <Footer/>
     </div>
   
     </Router>

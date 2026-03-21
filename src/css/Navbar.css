@@ -50,3 +50,20 @@
   outline: none;
   box-shadow: none !important;
 }
+
+.logout-btn {
+  background: #dc3545;
+  color: white !important;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 25px;
+  font-weight: bold;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.logout-btn:hover {
+  background: #b02a37;
+  transform: scale(1.05);
+}

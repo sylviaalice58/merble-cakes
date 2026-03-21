@@ -27,6 +27,9 @@ const Addproducts = () => {
       formdata.append("product_cost", product_cost);
       formdata.append("product_photo", product_photo);
 
+      const user = JSON.parse(localStorage.getItem("user"));
+      formdata.append("user_id", user.user_id);
+
       const response = await axios.post(
         "https://slyney2248.alwaysdata.net/api/add_product",
         formdata
