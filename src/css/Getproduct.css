@@ -1,0 +1,54 @@
+.search-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+}
+
+.suggestions-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 100%;
+  background-color: #222;
+  border: 1px solid #444;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+}
+
+.suggestion-item {
+  padding: 10px;
+  color: white;
+  background-color: #222;
+  cursor: pointer;
+}
+
+.suggestion-item:hover {
+  background-color: #333;
+  color: white;
+}
+
+/* Heading for dark cake-themed website with italic style */
+.available-cakes {
+  font-size: 3rem;                 /* Large and visible */
+  color: #f8c291;                  /* Soft pastel gold fallback */
+  text-align: center;               /* Centered */
+  font-weight: 800;                 /* Bold and prominent */
+  font-style: italic;               /* Italic for elegance */
+  letter-spacing: 2px;              /* Modern spacing */
+  margin: 2rem 0;                   /* Space above and below */
+  position: relative;
+  cursor: default;
+  
+  /* Gradient pastel glow effect */
+  background: linear-gradient(120deg, #e4aa74, #e76e53, #3398fd);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+
+}
+/* Subtle bounce like a cake on a plate */
+@keyframes cakeBounce {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}

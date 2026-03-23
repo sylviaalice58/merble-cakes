@@ -178,6 +178,13 @@ const Signin = () => {
           <hr className="line" />
         </div>
 
+        <p
+          style={{ textAlign: "right", fontSize: "12px", color: "#ffd700", cursor: "pointer", marginTop: "5px" }}
+          onClick={() => navigate("/request-reset")} // navigate to reset page
+        >
+          Forgot Password?
+        </p>
+
         <button
           title="Sign In with Google"
           type="button"

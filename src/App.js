@@ -15,6 +15,8 @@ import About from './component/Aboutus';
 import Contact from './component/Contact';
 import AdminRoute from './component/AdminRoute';
 import Footer from './component/Footer';
+import ResetPassword from './component/ResetPassword';
+import RequestReset from './component/RequestReset';
 
 
 
@@ -34,6 +36,8 @@ function App() {
         <Route path='/makepayment'element={<Makepayment />}/>
         <Route path='/about'element={<About />}/>
         <Route path='/contact'element={<Contact/>}/>
+         <Route path="/request-reset" element={<RequestReset />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path='*' element={<Notfound />} />
       </Routes>
 
