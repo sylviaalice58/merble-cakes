@@ -2,11 +2,13 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "../css/LoginForm.css";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
@@ -147,21 +149,32 @@ const Signin = () => {
         </div>
 
         <div className="input_container">
-          <label className="input_label" htmlFor="password_field">
-            Password
-          </label>
-          <input
-            placeholder="Password"
-            title="Password"
-            name="password"
-            type="password"
-            className="input_field"
-            id="password_field"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
+  <label className="input_label" htmlFor="password_field">
+    Password
+  </label>
+
+  <div className="password_wrapper">
+    <input
+      placeholder="Password"
+      title="Password"
+      name="password"
+      type={showPassword ? "text" : "password"}
+      className="input_field"
+      id="password_field"
+      required
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
+    />
+
+    <button
+      type="button"
+      onClick={() => setShowPassword(!showPassword)}
+      className="eye_btn"
+    >
+      {showPassword ? <FaEyeSlash /> : <FaEye />}
+    </button>
+  </div>
+</div>
 
         <button
           title="Sign In"
@@ -178,13 +191,7 @@ const Signin = () => {
           <hr className="line" />
         </div>
 
-        <p
-          style={{ textAlign: "right", fontSize: "12px", color: "#ffd700", cursor: "pointer", marginTop: "5px" }}
-          onClick={() => navigate("/request-reset")} // navigate to reset page
-        >
-          Forgot Password?
-        </p>
-
+        
         <button
           title="Sign In with Google"
           type="button"

@@ -157,3 +157,39 @@
 .note a:hover {
   text-decoration: underline;
 }
+
+.input_container {
+  width: 100%;
+}
+
+.input_field {
+  width: 100%;
+  box-sizing: border-box;
+  padding-right: 45px;
+}
+
+.password_wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password_wrapper .input_field {
+  width: 100%;
+}
+
+.eye_btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  font-size: 16px;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

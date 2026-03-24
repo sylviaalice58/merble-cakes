@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "../css/Contact.css";
 
 const Contact = () => {
@@ -8,19 +9,49 @@ const Contact = () => {
     message: "",
   });
 
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Your message has been sent successfully!");
-    setFormData({
-      name: "",
-      email: "",
-      message: "",
-    });
-  };
+
+    setLoading(true);
+    setSuccess("");
+    setError("");
+
+    try {
+      const form = new FormData();
+form.append("name", formData.name);
+form.append("email", formData.email);
+form.append("message", formData.message);
+
+const response = await axios.post(
+  "https://slyney2248.alwaysdata.net/api/contact_us",
+  form
+);
+      setSuccess(response.data.message || "Your message has been sent successfully!");
+
+      setTimeout(() => {
+        setSuccess("");
+      }, 5000);
+     
+      setFormData({
+        name: "",
+        email: "",
+        message: "",
+      });
+    } catch (err) {
+    console.log("Backend error:", err.response?.data);
+    setError(err.response?.data?.message || "Failed to send message. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="contact-page">
@@ -44,6 +75,9 @@ const Contact = () => {
         <div className="contact-right">
           <form onSubmit={handleSubmit} className="contact-form">
             <h2>Send Us a Message</h2>
+
+            {success && <p style={{ color: "green" }}>{success}</p>}
+            {error && <p style={{ color: "red" }}>{error}</p>}
 
             <input
               type="text"
@@ -72,7 +106,9 @@ const Contact = () => {
               required
             ></textarea>
 
-            <button type="submit">Send Message</button>
+            <button type="submit" disabled={loading}>
+              {loading ? "Sending..." : "Send Message"}
+            </button>
           </form>
         </div>
       </div>
