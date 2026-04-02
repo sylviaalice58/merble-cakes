@@ -3,16 +3,18 @@ import React, { useEffect, useRef, useState } from "react";
 import Loader from "./Loader";
 import { useNavigate } from "react-router-dom";
 import CarouselComponent from "./Carousel";
+import Categories from "./Category";
 import "../css/Getproduct.css";
 import { FaSearch } from "react-icons/fa";
 
 const Getproduct = () => {
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("All");
   const [showSuggestions, setShowSuggestions] = useState(false);
 
   const navigate = useNavigate();
@@ -23,15 +25,17 @@ const Getproduct = () => {
   const fetchProducts = async () => {
     try {
       setLoading(true);
+
       const response = await axios.get(
         "https://slyney2248.alwaysdata.net/api/get_products"
       );
+
       setProducts(response.data);
       setFilteredProducts(response.data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
       setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      setError(error.message);
     }
   };
 
@@ -39,38 +43,44 @@ const Getproduct = () => {
     fetchProducts();
   }, []);
 
+  // Filter by category + search
   useEffect(() => {
-    if (searchTerm.trim() === "") {
-      setFilteredProducts(products);
-      setShowSuggestions(false);
-    } else {
-      const matches = products.filter((product) =>
-        product.product_name.toLowerCase().includes(searchTerm.toLowerCase())
+    let filtered = [...products];
+
+    // Category filter
+    if (selectedCategory !== "All") {
+      filtered = filtered.filter(
+        (product) =>
+          product.category &&
+          product.category.toLowerCase() ===
+            selectedCategory.toLowerCase()
       );
-      setFilteredProducts(matches);
-      setShowSuggestions(true);
     }
-  }, [searchTerm, products]);
+
+    // Search filter
+    if (searchTerm.trim() !== "") {
+      filtered = filtered.filter((product) =>
+        product.product_name
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase())
+      );
+
+      setShowSuggestions(true);
+    } else {
+      setShowSuggestions(false);
+    }
+
+    setFilteredProducts(filtered);
+  }, [products, searchTerm, selectedCategory]);
 
   const handleSearch = (e) => {
     e.preventDefault();
-
-    if (searchTerm.trim() === "") {
-      setFilteredProducts(products);
-      setShowSuggestions(false);
-      return;
-    }
-
-    const matches = products.filter((product) =>
-      product.product_name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-    setFilteredProducts(matches);
     setShowSuggestions(false);
   };
 
   const handleClearSearch = () => {
     setSearchTerm("");
+    setSelectedCategory("All");
     setFilteredProducts(products);
     setShowSuggestions(false);
   };
@@ -89,6 +99,7 @@ const Getproduct = () => {
     };
 
     document.addEventListener("mousedown", handleClickOutside);
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -98,12 +109,22 @@ const Getproduct = () => {
     <div className="container">
       <CarouselComponent />
 
+      {/* Categories */}
+      <Categories onCategorySelect={setSelectedCategory} />
+
       <div className="row">
-        <h1 className="available-cakes">Available Cakes</h1>
+        <div className="col-12">
+          <h1 className="available-cakes text-center mb-4">
+            Available Cakes
+          </h1>
+        </div>
 
         {/* Search Bar */}
         <div className="col-12 mb-4" ref={searchRef}>
-          <form className="d-flex gap-2 position-relative" onSubmit={handleSearch}>
+          <form
+            className="d-flex gap-2 position-relative"
+            onSubmit={handleSearch}
+          >
             <div className="position-relative w-100">
               <span
                 style={{
@@ -131,10 +152,15 @@ const Getproduct = () => {
                 }}
               />
 
+              {/* Suggestions */}
               {showSuggestions && filteredProducts.length > 0 && (
                 <div
                   className="bg-white border rounded shadow position-absolute w-100 mt-1"
-                  style={{ zIndex: 1000, maxHeight: "220px", overflowY: "auto" }}
+                  style={{
+                    zIndex: 1000,
+                    maxHeight: "220px",
+                    overflowY: "auto",
+                  }}
                 >
                   {filteredProducts.slice(0, 6).map((product) => (
                     <div
@@ -164,39 +190,58 @@ const Getproduct = () => {
           </form>
         </div>
 
+        {/* Loader */}
         {loading && <Loader />}
-        <h4 className="text-danger">{error}</h4>
 
-        {!loading && filteredProducts.length === 0 && (
+        {/* Error */}
+        {error && (
           <div className="col-12">
-            <h5 className="text-center">No products found</h5>
+            <h4 className="text-danger text-center">{error}</h4>
           </div>
         )}
 
+        {/* No Products */}
+        {!loading && filteredProducts.length === 0 && (
+          <div className="col-12">
+            <h5 className="text-center">No cakes found</h5>
+          </div>
+        )}
+
+        {/* Products */}
         {filteredProducts.map((product) => (
           <div
             className="col-sm-6 col-md-4 col-lg-3 mb-4 d-flex"
             key={product.product_id || product.id}
           >
-            <div className="card shadow w-100 h-100">
+            <div className="card shadow w-100 h-100 border-0 rounded-4 overflow-hidden">
               <img
                 src={img_url + product.product_photo}
                 alt={product.product_name}
                 className="product_img card-img-top"
+                style={{
+                  height: "220px",
+                  objectFit: "cover",
+                }}
               />
 
               <div className="card-body d-flex flex-column">
-                <h5 className="text-primary">{product.product_name}</h5>
+                <h5 className="text-primary fw-bold">
+                  {product.product_name}
+                </h5>
 
-                <p className="text-white flex-grow-1">
-                  {product.product_description.slice(0, 100)}...
+                <p className="text-white flex-grow-1 ">
+                  {product.product_description?.slice(0, 100)}...
                 </p>
 
-                <h4 className="text-danger">KES {product.product_cost}</h4>
+                <h4 className="text-danger mb-3">
+                  KES {product.product_cost}
+                </h4>
 
                 <button
-                  className="btn btn-outline-primary mt-auto"
-                  onClick={() => navigate("/makepayment", { state: { product } })}
+                  className="btn btn-outline-primary mt-auto rounded-pill"
+                  onClick={() =>
+                    navigate("/makepayment", { state: { product } })
+                  }
                 >
                   Purchase Now
                 </button>

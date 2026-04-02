@@ -42,7 +42,7 @@ const CarouselComponent = () => {
             className="d-block w-100"
             alt="Chocolate Cake"
           />
-          <div className="carousel-caption d-none d-md-block">
+          <div class="carousel-caption">
             <h5>Delicious Chocolate Cake</h5>
             <p>Rich, creamy, and perfect for any occasion.</p>
           </div>
@@ -53,7 +53,7 @@ const CarouselComponent = () => {
             className="d-block w-100"
             alt="Strawberry Cake"
           />
-          <div className="carousel-caption d-none d-md-block">
+          <div class="carousel-caption">
             <h5>Strawberry Delight</h5>
             <p>Fresh strawberries and cream for the perfect treat.</p>
           </div>
@@ -64,7 +64,7 @@ const CarouselComponent = () => {
             className="d-block w-100"
             alt="Birthday Cake"
           />
-          <div className="carousel-caption d-none d-md-block">
+          <div class="carousel-caption">
             <h5>Birthday Surprise</h5>
             <p>Colorful, fun, and unforgettable cakes for every party.</p>
           </div>

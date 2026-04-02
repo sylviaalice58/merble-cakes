@@ -8,6 +8,7 @@ const Addproducts = () => {
   const [product_description, setProductDescription] = useState("");
   const [product_cost, setProductCost] = useState("");
   const [product_photo, setProductPhoto] = useState("");
+  const [category, setCategory] = useState("");
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
@@ -26,6 +27,7 @@ const Addproducts = () => {
       formdata.append("product_description", product_description);
       formdata.append("product_cost", product_cost);
       formdata.append("product_photo", product_photo);
+      formdata.append("category", category);
 
       const user = JSON.parse(localStorage.getItem("user"));
       formdata.append("user_id", user.user_id);
@@ -46,6 +48,7 @@ const Addproducts = () => {
       setProductDescription("");
       setProductCost("");
       setProductPhoto("");
+      setCategory("");
 
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
@@ -121,6 +124,24 @@ const Addproducts = () => {
                     ref={fileInputRef}
                     onChange={(e) => setProductPhoto(e.target.files[0])}
                   />
+                </div>
+
+                 <div className="mb-3">
+                  <label className="form-label custom-label">Category</label>
+                  <select
+                    className="form-control custom-input"
+                    required
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                  >
+                    <option value="">Select Category</option>
+                    <option value="Birthday Cakes">Birthday Cakes</option>
+                    <option value="Wedding Cakes">Wedding Cakes</option>
+                    <option value="Chocolate Cakes">Chocolate Cakes</option>
+                    <option value="Cupcakes">Cupcakes</option>
+                    <option value="Buttercream Cakes">Buttercream Cakes</option>
+                    <option value="Kids Cakes">Kids Cakes</option>
+                  </select>
                 </div>
 
                 <button type="submit" className="btn addcake-btn w-100">
