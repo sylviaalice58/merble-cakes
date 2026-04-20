@@ -22,7 +22,7 @@ const Footer = () => {
         {/* Brand Column */}
         <div style={{ flex: '1', minWidth: '200px', marginBottom: '20px' }}>
           <h2 style={{ color: '#eb5c4f', fontSize: '1.8rem', marginBottom: '10px' }}>
-            🎂 Merble Cakes
+            🎂 Merbles Cakes
           </h2>
           <p style={{ color: '#ccc', lineHeight: '1.5' }}>
             Delicious cakes delivered to your door. Celebrate every moment with sweetness and style!

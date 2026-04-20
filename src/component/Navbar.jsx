@@ -20,7 +20,7 @@ const Navbar = () => {
     <nav className="cake-navbar navbar navbar-expand-lg">
       <div className="container">
         <Link className="navbar-brand brand-logo" to="/">
-          <img src={cake} alt="" width="50px" height="50px" /> Merble Cakes
+          <img src={cake} alt="" width="50px" height="50px" /> Merbles Cakes
         </Link>
 
         <button

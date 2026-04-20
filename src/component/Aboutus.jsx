@@ -1,13 +1,13 @@
 import React from "react";
 import "../css/About.css";
-import marbleCake from "../image/img_3202-scaled.jpg";
+import MerblesCake from "../image/img_3202-scaled.jpg";
 
 const About = () => {
   return (
     <div className="about-page">
       <div className="about-hero">
         <div className="about-overlay">
-          <h1>About Our Merble Cake</h1>
+          <h1>About Our Merbles Cake</h1>
           <p>
             A perfect blend of rich chocolate and smooth vanilla, baked with
             love for every sweet moment.
@@ -17,20 +17,20 @@ const About = () => {
 
       <div className="about-container">
         <div className="about-image-section">
-          <img src={marbleCake} alt="Marble Cake" className="about-image" />
+          <img src={MerblesCake} alt="Merbles Cake" className="about-image" />
         </div>
 
         <div className="about-text-section">
           <h2>Our Story</h2>
           <p>
-            Marble cake is more than just a dessert to us — it is a beautiful
+            Merbles cake is more than just a dessert to us — it is a beautiful
             mix of flavor, art, and comfort. At our bakery, we prepare every
-            marble cake with the finest ingredients to create that soft, moist,
+            Merbles cake with the finest ingredients to create that soft, moist,
             and unforgettable taste.
           </p>
 
           <p>
-            What makes our marble cake special is the balance between deep
+            What makes our Merbles cake special is the balance between deep
             chocolate swirls and classic vanilla goodness. Every slice gives
             you two delicious flavors in one bite, creating a perfect harmony
             that cake lovers never forget.
@@ -38,7 +38,7 @@ const About = () => {
 
           <p>
             Whether you are celebrating a birthday, enjoying tea with friends,
-            or simply craving something sweet, our marble cake is made to bring
+            or simply craving something sweet, our Merbles cake is made to bring
             joy, warmth, and smiles to every table.
           </p>
 
@@ -53,7 +53,7 @@ const About = () => {
             </div>
             <div className="highlight-card">
               <h3>🎂 Perfect for Every Occasion</h3>
-              <p>From family moments to celebrations, marble cake always fits.</p>
+              <p>From family moments to celebrations, Merbles cake always fits.</p>
             </div>
           </div>
         </div>
