@@ -15,9 +15,26 @@ const Makepayment = () => {
 
   const handlesubmit = async (e) => {
     e.preventDefault();
+
+    // get the user data from local storage
+    const userData = localStorage.getItem("user");
+
+    // check if user data exists and parse it
+    if (!userData) {
+      alert("Please login to make a payment.");
+      navigate("/signin",{state:{from:"/makepayment"}}); // redirect to signin page
+      return;
+    }
+
     setLoading(true);
     setSuccess("");
     setError("");
+
+    if (!number.startsWith("254") || number.length !== 12) {
+      setLoading(false);
+      setError("Please enter a valid phone number in the format 254xxxxxxxxx.");
+      return;
+    }
 
     try {
       const formdata = new FormData();

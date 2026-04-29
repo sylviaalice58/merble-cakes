@@ -56,8 +56,8 @@ const Footer = () => {
         {/* Contact Column */}
         <div style={{ flex: '1', minWidth: '200px', marginBottom: '20px' }}>
           <h3 style={{ color: '#ffcc00', marginBottom: '10px' }}>Contact</h3>
-          <p style={{ color: '#ccc', marginBottom: '5px' }}>📞 +254 712 345 678</p>
-          <p style={{ color: '#ccc', marginBottom: '5px' }}>✉️ hello@sweetcakes.com</p>
+          <p style={{ color: '#ccc', marginBottom: '5px' }}>📞 +254 729 932 162</p>
+          <p style={{ color: '#ccc', marginBottom: '5px' }}>✉️ Merblecake@gmail.com</p>
           <p style={{ color: '#ccc' }}>📍 Kisumu, Kenya</p>
         </div>
       </div>
